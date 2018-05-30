@@ -1,0 +1,10 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{H2-Optimal Model Reduction: The Infinite Horizon Case}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{H2 Error Measure}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Interpolatory Model Reduction}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{H2\(tf\) Optimal Model Reduction on a Finite Horizon}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Error Measures on a Finite-time Horizon}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{Finite Horizon Interpolation Based H2\(tf\) Optimality Conditions}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.3}{FHIRKA: A Descent Algorithm}{section.3}% 8
+\BOOKMARK [1][-]{section.4}{Numerical Results}{}% 9
+\BOOKMARK [1][-]{section.5}{Conclusions and Future Work}{}% 10
