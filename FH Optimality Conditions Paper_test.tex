@@ -1,0 +1,1073 @@
+
+
+\documentclass[preprint]{elsarticle}
+\usepackage{graphics, graphicx, euscript, float,blkarray, listings}
+\usepackage[top = 1 in, bottom = 1 in, right = 1 in, left = 1 in]{geometry}
+\usepackage{tabularx, booktabs, array, float, framed}
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\usepackage{appendix, setspace}
+\usepackage{mathtools}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools,thmtools,etoolbox}
+\usepackage{algorithm,algorithmicx,algpseudocode}
+\usepackage{booktabs,subcaption}
+\usepackage{tikz,pgfplots}%\pgfplotsset{compat=1.14}
+\pgfplotsset{compat=newest}
+\usepackage{lineno}
+\usepackage{todonotes}
+\usepackage[colorlinks,citecolor=black]{hyperref}
+\usepackage{cleveref}
+\usepackage[scientific-notation=true]{siunitx}
+\usepackage{multicol}
+
+%\modulolinenumbers[1]
+
+\journal{Enter the name of the journal here}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%% `Elsevier LaTeX' style
+\bibliographystyle{elsarticle-num}
+
+% Theorem definitions
+\newtheorem{theorem}{Theorem}[section]
+\crefname{theorem}{theorem}{theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+
+\newtheorem{prop}[theorem]{Proposition}
+\crefname{prop}{proposition}{propositions}
+\Crefname{prop}{Proposition}{Propositions}
+
+\newtheorem{lemma}[theorem]{Lemma}
+\crefname{lemma}{lemma}{lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+
+\newtheorem{corollary}[theorem]{Corollary}
+\crefname{corollary}{corollary}{corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+
+%\theoremstyle{remark}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\AtEndEnvironment{remark}{\hfill\ensuremath{\diamondsuit}}
+\crefname{remark}{remark}{remarks}
+\Crefname{remark}{Remark}{Remarks}
+
+\theoremstyle{definition}
+\newtheorem{defn}[theorem]{Definition}
+\crefname{defn}{definition}{definitions}
+\Crefname{defn}{Definition}{Definitions}
+
+\newtheorem{example}[theorem]{Example}
+\AtEndEnvironment{example}{\hfill\ensuremath{\bigcirc}}
+\crefname{example}{example}{example}
+\Crefname{example}{Example}{Examples}
+
+% End theorem definitions
+
+%% Some bold vectors
+\newcommand{\bfell}{{\boldsymbol{\ell}}}
+\newcommand{\bfu}{{\boldsymbol{u}}}
+\newcommand{\bfb}{{\boldsymbol{b}}}
+\newcommand{\bfc}{{\boldsymbol{c}}}
+\newcommand{\bfp}{{\boldsymbol{p}}}
+\newcommand{\bfx}{{\boldsymbol{x}}}
+\newcommand{\bfy}{{\boldsymbol{y}}}
+\newcommand{\bfr}{{\boldsymbol{r}}}
+\newcommand{\bff}{{\boldsymbol{f}}}
+\newcommand{\bfe}{{\boldsymbol{e}}}
+\newcommand{\bfg}{{\boldsymbol{g}}}
+\newcommand{\bfv}{{\boldsymbol{v}}}
+\newcommand{\bfw}{{\boldsymbol{w}}}
+\newcommand{\bfV}{{\boldsymbol{V}}}
+\newcommand{\bfW}{{\boldsymbol{W}}}
+\newcommand{\bfF}{{\boldsymbol{F}}}
+\newcommand{\bfG}{{\boldsymbol{G}}}
+\newcommand{\bfpsi}{{\boldsymbol{\psi}}}
+\newcommand{\bfpi}{{\boldsymbol{\pi}}}
+%\newcommand{\bfalpha}{{\boldsymbol{\alpha}}}
+\newcommand{\bfbeta}{{\boldsymbol{\beta}}}
+
+%% Makros for figure legends
+\newcommand{\original}{Original}
+\newcommand{\loewner}{Loewner}
+\newcommand{\additional}{Additional points}
+\newcommand{\hermite}{Hermite}
+
+%%%% Makros for the paper %%%%%%%%%
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\spann}{span}
+% Interpolation Data
+\def\numData{n}
+\def\leftDir{{\boldsymbol{\ell}}}
+\def\LeftDir{\mathcal{L}}
+\def\leftPoint{\mu}
+\def\LeftPoint{\mathcal{M}}
+\def\leftData{{\boldsymbol{f}}}
+\def\LeftData{\mathcal{F}}
+\def\rightDir{{\boldsymbol{\it r}}}
+\def\RightDir{\mathcal{R}}
+\def\rightPoint{\sigma}
+\def\RightPoint{\mathcal{S}}
+\def\rightData{{\boldsymbol{g}}}
+\def\RightData{\mathcal{G}}
+\def\bitangentialData{\theta}
+% Realization and Reduced Matrices
+\def\numFunctions{K}
+\def\Hred{\smash{\widetilde{H}}}
+\def\Ered{\smash{\widetilde{E}}}
+\def\Ared {\smash{\widetilde{A}}}
+\def\Bred{\smash{\widetilde{B}}}
+\def\Cred{\smash{\widetilde{C}}}
+\def\Kred{\smash{\widetilde{\mathcal{K}}}}
+\def\xred{\widetilde{\boldsymbol{x}}}
+\def\yred{\widetilde{\boldsymbol{y}}}
+% Full model
+\def\dimFOM{N}
+
+\newcommand{\e}[1]{\mathrm{e}^{#1}}
+\newcommand{\goyal}{Goyal}
+
+
+%%%% END Macros for the paper %%%%%%%%%
+
+
+
+
+
+
+
+
+
+\def\mathcal{\EuScript}
+
+\numberwithin{equation}{section}
+%New commands
+%\newtheorem{example}{Example}
+%\newtheorem{theorem}{Theorem}[section]
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Lemma}[Theorem]{Lemma}
+%\newtheorem{corollary}[Theorem]{Corollary}
+\newtheorem{Definition}[Theorem]{Definition}
+%\newtheorem{Remark}[Theorem]{Remark}
+\newtheorem{Proposition}[Theorem]{Proposition}
+\newcommand{\FH}{FHIRKA}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\bh}{\hat{B}}
+\newcommand{\hc}{\hat{C}}
+\newcommand{\CC}{\mathbb{C}}
+%\newcommand{\cc}{\mathbf{c}}
+\newcommand{\x}{\mathbf{x}}
+%\newcommand{\bb}{\mathbf{b}}
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\bpi}{\mathbf{\Pi}}
+\newcommand{\Y}{\mathbf{Y}}
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\B}{\mathbf{B}}
+\newcommand{\I}{\mathbf{I}}
+\newcommand{\G}{\mathbf{G}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\D}{\mathbf{D}}
+\newcommand{\M}{\mathbf{M}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\U}{\mathbf{U}}
+\newcommand{\K}{\mathbf{K}}
+\newcommand{\T}{\mathbf{T}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\f}{\mathbf{f}}
+
+%\newcommand{\cbl}{\mathbf{c}}
+%\newcommand{\bbl}{\mathbf{b}}
+
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\HH}{\mathbf{H}}
+\newcommand{\PP}{\mathbf{P}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\J}{\mathbf{J}}
+\newcommand{\h}{\mathbf{h}}
+\newcommand{\g}{\mathbf{g}}
+\newcommand{\V}{\mathbf{V}}
+\newcommand{\W}{\mathbf{W}}
+\newcommand{\tf}{t_f}
+\newcommand{\rr}{\mathbf{r}}
+\newcommand{\lb}{\mathbf{l}}
+
+\newcommand{\rc}{\boldsymbol{r}}
+\newcommand{\lc}{\boldsymbol{\ell}}
+\newcommand{\cc}{\boldsymbol{c}}
+\newcommand{\bb}{\boldsymbol{b}}
+
+\newcommand{\ch}{\mathcal{H}}
+\newcommand{\ca}{\mathcal{A}}
+\newcommand{\cp}{\mathcal{P}}
+\newcommand{\cl}{\mathcal{L}}
+\newcommand{\cu}{\mathcal{U}}
+\newcommand{\cq}{\mathcal{Q}}
+\newcommand{\co}{\mathcal{O}}
+\newcommand{\Si}{\mathbf{\Sigma}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+\newcommand{\pder}[2][]{\dfrac{\partial#1}{\partial#2}}
+\newcommand{\cbfF}{\mbox{\boldmath${\EuScript{F}}$} }
+\newcommand{\cbfH}{\mbox{\boldmath${\EuScript{H}}$} }
+%\newcommand{\HH}{\cbfH}
+%\newcommand{\cbfG}{\mbox{\boldmath${\EuScript{G}}$} }
+\newcommand{\cbfK}{\mbox{\boldmath${\EuScript{K}}$} }
+%\newcommand{\cbfA}{\mbox{\boldmath${\EuScript{A}}$} }
+%\newcommand{\cbfB}{\mbox{\boldmath${\EuScript{B}}$}}
+%\newcommand{\cbfC}{\mbox{\boldmath${\EuScript{C}}$}}
+\newcommand{\cbfBsm}{\mbox{{\scriptsize \boldmath${\EuScript{B}}$}}}
+\newcommand{\cbfCsm}{\mbox{{\scriptsize \boldmath${\EuScript{C}}$}}}
+\newcommand{\cbfD}{\mbox{\boldmath${\EuScript{D}}$}}
+\newcommand{\cbfDsm}{\mbox{{\scriptsize \boldmath${\EuScript{D}}$}}}
+%\newcommand{\cbfV}{\mbox{\boldmath${\EuScript{V}}$} }
+\newcommand{\cbfW}{\mbox{\boldmath${\EuScript{W}}$} }
+\newcommand{\cbfZ}{\mbox{\boldmath${\EuScript{Z}}$} }
+\newcommand{\cbfI}{\mbox{${\EuScript{I}}$} }
+%\newcommand{\bh}{\hat{\B}}
+%\newcommand{\hc}{\hat{\C}}
+
+\newcommand{\cbfA}{\mbox{${\EuScript{A}}$} }
+\newcommand{\cbfB}{\mbox{${\EuScript{B}}$}}
+\newcommand{\cbfC}{\mbox{${\EuScript{C}}$}}
+\newcommand{\cbfG}{\mbox{${\EuScript{G}}$} }
+\newcommand{\cbfV}{\mbox{${\EuScript{V}}$} }
+
+
+
+\begin{document}
+%\doublespacing
+%\noindent{\Large \textbf {$\ch_2(\tf)$ Optimality Conditions for a Finite-time Horizon}}
+\begin{frontmatter}
+
+\title{ {$\ch_2(\tf)$ Optimality Conditions for a Finite-time Horizon}}
+
+\author{Klajdi Sinani}
+\ead{klajdi@vt.edu}
+\cortext[cor1]{Corresponding author}
+
+\author{Serkan~Gugercin}
+\ead{gugercin@vt.edu}
+
+\address{Department of Mathematics, Virginia Polytechnic Institute and State University, Blacksburg, VA 24061, USA}
+
+\begin{abstract} %a data-driven realization
+%Simulation, design, and control of large-scale dynamical systems play an important role in numerous scientific and industrial tasks. However, large-scale dynamical systems pose tremendous computational difficulties when applied in numerical simulations.  Model reduction offers a remedy to these challenges by replacing the large-scale dynamics with easy-to-simulate reduced models, that provide high-quality (optimal) approximation to the quantity of interest. 
+%One common measure for the approximation quality  is the $\ch_2$ norm (over the infinite time-horizon.) 
+%Iterative Rational Krylov Algorithm (IRKA), and its variants, produce locally optimal reduced models with respect to the
+% the $\ch_2$ norm over infinite horizon. In practice, however, one usually has access to simulation power in a finite horizon might . In this paper, we establish the necessary optimality conditions for model reduction over a finite-time horizon under the $\ch_2(\tf)$ norm. We also construct an algorithm, called \FH, which yields a locally optimal reduced model that satisfies the established interpolation-based optimality conditions.
+In this paper we establish the interpolatory model reduction framework for optimal approximation of MIMO dynamical systems with respect to the $\ch_2$ norm over a finite-time horizon under, denoted as the $\ch_2(\tf)$ norm.
+Using the underlying inner product space, we derive the interpolatory first-order necessary optimality conditions for approximation in the $\ch_2(\tf)$ norm. Then,  we  develop an algorithm, which yields a locally optimal reduced model that satisfies the established interpolation-based optimality conditions. We test the algorithm on various numerical examples to illustrate its performance.
+  \end{abstract}
+
+\begin{keyword}
+	 time-limited model reduction \sep interpolation \sep unstable system \sep $\ch_2$-optimality \sep linear systems 
+	%{\bf AMS(MOS) subject classification:} 93B15, 30E05, 93C05%, 93A30, 93A15
+\end{keyword}
+
+\end{frontmatter}
+%Introduction
+\section{Introduction}
+Simulation, design, and control of dynamical systems play an important role in numerous scientific and industrial tasks such as signal propagation in the nervous system, heat dissipation, prediction of major weather events etc. The need for  detailed  models due to the increasing demand for greater resolution leads to  
+large-scale dynamical systems, posing tremendous computational difficulties when applied in numerical simulations. In order to overcome these challenges, we perform  model reduction where we replace the large-scale dynamics with high-fidelity reduced representations.
+
+Consider the linear dynamical system:
+\begin{equation}  \label{fom1}
+\begin{array}{rcl}
+\dot{\x}(t) & =& \A\x(t) +\B\uu(t)\\
+\y(t)&=&\C\x(t) 
+\end{array}
+~~\mbox{with}~~ \x(0) = \mathbf{0}
+\quad \Longleftrightarrow \quad
+\y(t)=\int_{0}^{t}\h (t-\tau)\uu(\tau) d\tau,
+\end{equation}
+%%
+%\begin{multicols}{2}
+%\begin{equation*} 
+%\begin{aligned}
+%\dot{\x}(t)&=\A\x(t) +\B\uu(t)\\
+%\y(t)&=\C\x(t) 
+%\end{aligned}
+%\end{equation*}
+%
+%\columnbreak
+% \begin{equation} \label{fom1}
+% \begin{aligned}
+%\y(t)=\int_{-\infty}^{\infty}\h (t-\tau)\uu(\tau) d\tau
+%\end{aligned}
+%\end{equation}
+%\end{multicols}
+%%
+%{\setlength{\parindent}{0cm}
+\noindent
+where $\A \in \R^{n\times n}$, $\B\in \R^{n\times m}$, and $\C\in \R^{p\times n}$ are constant matrices; 
+the variable $\x(t)\in \R^n$ denotes the internal variables, $\uu(t)\in \R^m$ denotes the control inputs, and $\y(t)\in \R^p$ denotes the outputs; and $\h(t)=\C e^{\A t}\B$ is the impulse response of the full model.   The length of the internal variable $\x(t)$, i.e., $n$, is called the order of the full model that we would like to reduce.  Model
+reduction achieves this by replacing the original model with a lower dimensional one:
+%}
+%%
+\begin{equation}  \label{rom1}
+\begin{array}{rcl}
+\dot{\x}_r(t) & =& \A_r\x_r(t) +\B_r\uu(t)\\
+\y_r(t)&=&\C_r\x_r(t) 
+\end{array}
+~~\mbox{with}~~ \x_r(0) = \mathbf{0}
+\quad \Longleftrightarrow \quad
+\y_r(t)=\int_{0}^{t}\h_r (t-\tau)\uu(\tau) d\tau,
+\end{equation}
+%\begin{multicols}{2}
+%\begin{equation*} 
+%\begin{aligned}
+%\dot{\x}_r(t)&=\A_r\x_r(t) +\B_r\uu(t)\\
+%\y_r(t)&=\C_r\x_r(t)
+%\end{aligned}
+%\end{equation*}
+%
+%
+%\columnbreak
+%\begin{equation} \label{rom1}
+%\begin{aligned}
+%\y_r(t)=\int_{-\infty}^{\infty}\h_r (t-\tau)\uu(\tau) d\tau
+%\end{aligned}
+%\end{equation}
+%\end{multicols}
+%%
+%\setlength{\parindent}{0cm}
+where \eqref{fom1}, $\h_r(t)=\C_r e^{\A_r t}\B_r$ is the impulse response of the reduced model, and $\A_r \in \R^{r\times r}$, $\B_r\in \R^{r\times m}$, and $\C_r\in \R^{p\times r}$ with $r\ll n$. The goal is that the output of the reduced model, $\y_r(t)$, approximates the true output, $\y(t)$, of the original system accurately in an appropriate norm. 
+
+For the linear dynamical systems we consider here, a plethora of methods exists
+for producing high-fidelity/ optimal reduced models, such as  balanced truncation \cite{MulR76, Moo81} and its variants, optimal Hankel norm approximation \cite{Glo84}, and the Iterative Rational Krylov Algorithm (IRKA) \cite{GugBA08} and its variants.  See \cite{Ant05,BauBF14,BenGW05} for further references.
+These methods usually focus on high-quality reduced model  over an infinite time horizon. However, in various settings, we might either have access to simulations over a finite horizon or can only simulate the system under investigation for a finite horizon such as in the case unstable dynamical systems. Therefore, in those situations we are interested in the behavior of the dynamical system over a finite time interval $[0,t_f]$ where $t_f < \infty$, and we need the reduced model to be accurate only in the interval of interest. 
+
+
+Time-limited balanced truncation\cite{GawJ90, GugA03, RedK17, Kur17} and Proper Orthogonal Decomposition(POD)\cite{HolLB96}  are two common frameworks to create reduced models on a finite horizon. 
+For time-limited balanced truncation, \cite{GugA03} establishes an upper bound for the $\ch_\infty$ error between the full and reduced models,  Redmann and K\"urschner provide an $\ch_2$ error bound in \cite{RedK17}. In this paper,  we explore $\ch_2$ optimal for model reduction over a finite time horizon. 
+  We establish $\ch_2(\tf)$ optimality conditions over a finite time horizon and introduce an algorithm which yields better approximations of the large-scale dynamical systems compared to other model reduction methods.
+ 
+The optimality requires a parametrization of the reduced model. We will work the time-domain representation of the dynamical system to derive the conditions for a finite time. Specifically, we represent the impulse response of the reduced dynamical system using the modal decomposition, i.e.,
+  %}
+%Initially, inspired by Wilson \cite{Wil70}, we exploit the Lyapunov equations associated with the dynamical system in a finite horizon and the relationship between the $\ch_2(\tf)$ norm and the finite-time Gramians to obtain the $\ch_2(\tf)$ optimality conditions. However, due to the difficulties that we encountered during the implementation of the Gramian-based optimality conditions,
+\begin{equation}\label{kernel}
+\begin{aligned}
+\h_r(t)=\C_r e^{\A_r t}\B_r=\sum_{i=1}^r e^{\lambda_it}\lc_i\rc_i^T.
+\end{aligned}
+\end{equation}
+where $\lambda_i$'s are the eigenvalues of $\A_r$, and $\lc_i \in \R^{p\times 1}, \rc_i\in \R^{m\times1}$. 
+In other words, we are writing the impulse response as a sum of $r$ rank-1 $p\times m$  matrices.
+For simplicity  we assumed that $\lambda_i$'s, the reduced order poles,  are simple.  The representation \eqref{kernel} 
+is nothing but a state-space transformation on $\h_r(t)=\C_r e^{\A_r t}\B_r$ using the eigenvectors of $\A_r$. 
+Using the time-domain representation of the impulse response of the reduced model, we derive interpolation-based optimality conditions in the $\ch_2(\tf)$ norm and implement a model reduction algorithm which satisfies these optimality conditions.
+Establishing $\ch_2(\tf)$ optimality conditions for model reduction over a finite horizon also enables us to reduce unstable systems optimally under the $\ch_2(\tf)$ measure. Therefore, the advantages of time-limited model reduction under the $\ch_2(\tf)$ norm are two fold: first, we can obtain a better approximation in the time interval of interest, and, second, we can obtain a locally optimal reduced order model even for unstable systems. 
+
+The rest of the paper is organizes as follows: In Section  \ref{sec:intro} we briefly review optimal  $\ch_2$ model reduction in the infinite horizon. The main results, including the new optimality conditions for finite horizon, are establised in Section \ref{sec:main} followed by numerical examples in Section \ref{sec:num}. The papers ends with conclusions and future work in Section \ref{sec:conc}.
+
+%Error Measures
+\section{$\ch_2$-Optimal Model Reduction: The Infinite Horizon Case} \label{sec:intro}
+Interpolatory model reduction is a very effective approach used to approximate large-scale systems with smaller ones in a locally optimal manner under the $\ch_2$ norm. Model reduction with respect to the $\ch_2$ norm has been studied extensively; see \cite{BarCO91, BryC90, FulO90, MeiL67, Hal92, HylB85, SpaMM92, YanL99, LepMPV91, AniBGA13} and the references therein.   Before describing interpolation based reduced order modeling, we discuss the $\ch_2$ error measure and its definitions in the time and frequency domain.
+\subsection{$\ch_2$ Error Measure}
+When approximating a large scale dynamical system by a reduced order model, we need to compute the approximation error. The error analysis for linear dynamical systems may be conducted either in the frequency domain or in the time domain. Therefore, we define the $\ch_2$ norm in each domain. 
+
+%Define the time domain inner product 
+\begin{Definition}
+Define the $\ch_2$ inner product $\langle \cdot, \cdot \rangle_{\ch_2}$ in the time domain as 
+\begin{align*}
+\langle \h, \g \rangle_{\ch_2} =\int_0^\infty tr((\h(t))^T \g(t)) dt, 
+\end{align*}
+and, as a result, 
+\begin{align*}
+\norm{\h}_{\ch_2}^2=\int_0^\infty \norm{\h}_F^2 dt.
+\end{align*} 
+where $\norm{\cdot}_F$ denotes the Frobenius norm.
+\end{Definition}
+The $\ch_2$ norm of a dynamical system is the norm of the impulse response of the dynamical system e.g. the $\ch_2$ norm of \eqref{fom1} is
+\begin{align*}
+\norm{\h}_{\ch_2}^2=\int_0^\infty  \norm{\h}_F^2 dt
+\end{align*} 
+where $\h=\C e^{\A t}\B$.
+
+Prior to defining the $\ch_2$ norm in the frequency domain, we need to obtain a frequency representation of the dynamical systems (\ref{fom1}) and (\ref{rom1}). Computing the Fourier transforms of  $\y(t)$, $\y_r(t)$ and $\uu(t)$, we have:
+\begin{align*}
+\Y(s)= \HH(s) \U(s) \quad\mbox{where}\quad \HH(s) &=\C(s\I-\A)^{-1}\B\\
+\Y_r(s)= \HH_r(s) \U(s) \quad\mbox{where}\quad \HH_r(s)&=\C_r(s\I_r-\A_r)^{-1}\B_r
+\end{align*}
+$\HH(s)$ and $\HH_r(s)$ are the transfer functions associated with the full and reduced model respectively. 
+%Here we define the inner product in the frequency domain
+\begin{Definition}
+Define the $\ch_2$ inner product $\langle \cdot, \cdot \rangle_{\ch_2}$ in the frequency domain as 
+\begin{align*}
+\langle \G, \HH \rangle_{\ch_2}:=\dfrac{1}{2\pi}\int_{-\infty}^\infty tr(\G(i\omega)^* \HH(i\omega)) d\omega. 
+\end{align*}
+\end{Definition}
+
+Now that we know what the transfer function looks like, and we have established the frequency domain $\ch_2$ inner product, we define the $\ch_2$ norm in the frequency domain:
+\begin{align*}
+\norm{ \HH}_{\ch_2}:=\biggl(\dfrac{1}{2\pi} \int_{-\infty}^\infty \norm{\HH(i\omega)}_F^2 d\omega \biggr)^{1/2}.
+\end{align*}
+
+We aim to approximate the output of the full model with the output of the reduced model. The following inequality shows that the transfer function error is an upper bound for the output error \cite{AntBG10b}.
+\begin{equation}
+\begin{aligned}
+\norm{\y-\y_r}_{L_\infty}\leq\norm{\HH-\HH_r}_{\ch_2}\norm{\uu}_{L_2}
+\end{aligned}
+\end{equation}
+Therefore, approximating the transfer function allows us to obtain a reduced order model whose output is very close to the original output. Hence, finding a locally $\ch_2$ optimal reduced order transfer function that approximates the original transfer function is sufficient to guarantee that the outputs of the reduced system approximate the true outputs. 
+
+
+%Interpolatory Model Reduction
+\subsection{Interpolatory Model Reduction}
+When we reduce the order of a dynamical system we are essentially approximating the full order system with a reduced order model. Interpolation is a very effective and powerful approximation method.
+Our goal is to construct a locally optimal reduced model with respect to some norm, in our case, specifically, the $\ch_2$ norm. In other words, if we have a full-order dynamical system $\HH(s)$, we want to construct a reduced-order model $\HH_r(s)$ such that
+\begin{align*}
+\norm{\HH-\HH_r}_{\ch_2} \leq \norm{\HH-\hat{\HH}_r}_{\ch_2}, 
+\end{align*}
+where ${\hat{\HH}_r}$  is any dynamical system of dimension $r$. 
+The following theorem tells us that an $\ch_2$ optimal reduced order model interpolates the original model at the poles of the reduced model \cite{GugBA08, MeiL67}. 
+\begin{theorem}[Gugercin, Antoulas and Beattie, '08] \label{h2thm}
+Let $\HH_r(s)$ be the best $r^{th}$ order rational approximation of a stable linear model $\HH$ with respect to the $\ch_2$ norm. Then
+\begin{align*}
+\lc_k^T\HH(-\lambda_k)&=\lc_k^T\HH_r(-\lambda_k)\\
+\HH(-\lambda_k)\rc_k&=\HH_r(-\lambda_k)\rc_k\\
+\lc_k^T\HH'(-\lambda_k)\rc_k&=\lc_k^T\HH_r'(-\lambda_k)\rc_k
+\end{align*}
+for $k=1, 2, ... , r$ where $\lambda_k$ denotes the poles of the reduced system and $\lc_k, \rc_k$ are the tangential directions.
+\end{theorem}
+The Iterative Rational Krylov Algorithm (IRKA) produces a reduced model that satisfies the first-order optimality
+conditions in the $\ch_2$ norm. \cite{GugBA08}. 
+%Here talk briefly about Wilson Conditions
+
+%FH model reduction
+\section{$\ch_2(\tf)$ Optimal Model Reduction on a Finite Horizon}  \label{sec:main} 
+If we are interested only in the behavior of a system in a finite time interval, we can obtain better reduced models by approximating the original system over the interval of interest, instead of  reducing the system over an infinite time interval.
+Also, if we are dealing with an unstable system i.e. some of the poles lie to the right of the imaginary axis, we run into difficulties because the solution might blow up as time gets larger and larger. For example, consider the impulse response of (\ref{fom1}): $\h(t)=\C e^{\A t}\B$. If the eigenvalues of $\A$ which correspond to the poles of the full model have a positive real part, $\norm{\h}_F$ approaches $\infty$. 
+Thus, if our goal is to optimally reduce an unstable system, we need to consider a different error measure, i.e. an error measure that does not become infinitely large in spite of poles lying to right of the imaginary axis. 
+
+Next, we define a norm for a finite time horizon.
+
+%Error measures in a finite-time horizon
+\subsection{Error Measures on a Finite-time Horizon}
+We define the $\ch_2(\tf)$ inner product and norm for a finite horizon as follows:
+\begin{Definition}\label{innerh2}
+Define the finite-time $\ch_2(\tf)$ inner product $\langle \cdot, \cdot \rangle_{\ch_2(\tf)}$ as 
+\begin{align*}
+\langle \h, \g \rangle_{\ch_2(\tf)} =\int_0^{\tf} tr( (\h(t))^T \g(t)) dt, 
+\end{align*}
+and, as a result, 
+\begin{align*}
+\norm{\h}_{\ch_2(\tf)}^2=\int_0^{\tf} \norm{\h(t)}_F^2 dt.
+\end{align*} 
+\end{Definition}
+
+Similar to the $\ch_2$ norm, the $\ch_2(\tf)$ norm can be computed as follows:
+\begin{align*}
+\norm{\HH}_{\ch_2(\tf)}=\sqrt{\text{tr}(\C \PP(\tf) \C ^T)}
+\end{align*}
+where
+\begin{align*}
+ \PP (\tf):= \int_0^{\tf} e^{\A t}\B\B^Te^{\A^Tt} dt \hspace{2cm} \Q (\tf):= \int_0^{\tf}e^{\A^Tt}\C^T\C e^{\A t}dt
+\end{align*}
+are the finite reachability and observability Gramians, respectively. We can show these finite Gramians are the solutions to the following Lyapunov equations:
+\begin{align*}
+\A^T\Q (\tf) + \Q(\tf)\A + \C^T\C-e^{\A^T\tf}\C^T\C e^{\A \tf}=0\\
+\A\PP(\tf) + \PP(\tf) \A^T+\B\B^T-e^{\A \tf}\B\B^Te^{\A^T\tf}=0.
+\end{align*}
+
+%\textbf{Remark.} Goyal and Redmann established gramian-based optimality conditions independently of this paper \cite{GoyR17}. They obtained the same condition as we did in this paper for $\C_r$, however their conditions for $\B_r$ and $\A_r$ are different from ours. While we differentiate the same Lagrangian $\cl$ with respect to both $\B_r$ and $\C_r$, Goyal and Redmann use two different, but equivalent expressions for the $\ch_{2(\tf)}$ error. They write
+%\begin{equation}\label{cerr}
+%\begin{aligned}
+%\norm{\cbfH}_{\ch_2(\tf)}=\sqrt{\text{tr}(\cbfC\cp(\tf) \cbfC^T)}
+%\end{aligned}
+%\end{equation}
+%\begin{equation}\label{berr}
+%\begin{aligned}
+%\norm{\cbfH}_{\ch_2(\tf)}=\sqrt{\text{tr}(\cbfB^T\cq(\tf) \cbfB)}.
+%\end{aligned}
+%\end{equation}
+%Differentiating \eqref{cerr} with respect to $\C_r$, and \eqref{berr} with respect to $\B_r$ yields simpler expressions for the optimality conditions compared to the expressions that we obtained. They derived the optimality condition related to $\A_r$ by differentiating with respect to the eigenvalues of $\A_r$. They also present an algorithm that produces a reduced order model, however, the presented algorithm in \cite{GoyR17} approximately satisfies the optimality conditions presented in their paper. For more details, see \cite{GoyR17}. The algorithm we propose in the following section satisfies the interpolation based conditions exactly. 
+
+%Finite horizon pole-residue optimality conditons
+\subsection{Finite Horizon Interpolation Based $\ch_2(\tf)$ Optimality Conditions}
+In this section we discuss interpolation based $\ch_2(\tf)$ optimality conditions and how we obtained these conditions. In order to derive these $\ch_2(\tf)$ optimality conditions we expand the impulse response of the reduced system as follows:
+\begin{equation}\label{kernel}
+\begin{aligned}
+\h_r(t)=\sum_{i=1}^r e^{\lambda_it}\lc_i\rc_i^T.
+\end{aligned}
+\end{equation}
+
+
+
+
+%%%MIMO CASE
+%%%
+%%%
+Using Definition \ref{innerh2} of the $\ch_2(\tf)$ norm, we can measure the error between the full and reduced models. In the next lemma, we consider the norm of the error system. 
+\begin{Lemma}\label{merrsq}
+Let $\h(t)$ be the impulse response of the full order model and $\h_r(t)$ be the impulse response of the reduced order model. Then, 
+\begin{equation}\label{merexp}
+\begin{aligned}
+\norm{\h-\h_r}_{\ch_2({\tf})}^2=\norm{\h}_{\ch_2({\tf})}^2-2Re\langle\h, \h_r\rangle_{\ch_2({\tf})}+\norm{\h_r}_{\ch_2({\tf})}^2.
+\end{aligned}
+\end{equation}
+\end{Lemma}
+\begin{proof}
+The proof for this lemma is obvious if we use the properties of an inner product.
+\end{proof}
+Recall that our goal is to find an $\h_r$ that minimizes the error. In order to minimize the expression in \eqref{merexp}, we need to differentiate with respect to $\h_r$. Since $\h_r$ is determined by the poles and the tangential directions of the reduced model, we write \eqref{merexp} in terms of these poles and tangential directions. The impulse response of the full system $\h$ is clearly constant with respect to the poles and residues of the reduced system; hence, when we differentiate \eqref{merexp} with respect to the poles and tangential direction of the reduced order model, the first term disappears. For this reason, in the following lemmas, we deal only with the last two terms in \eqref{merexp}.   
+
+%b_j, r_k column vectors of B^T , B_r^T
+\begin{Lemma}\label{minnerexp}
+Let $\h (t)=\C e^{\A t}\B=\sum_{j=1}^n \cc_je^{\rho_jt}\bb_j^T$ and $\h_r(t)=\C_r e^{\A_r t}\B_r=\sum_{i=1}^r \lc_i e^{\lambda_it} \rc_i^T$ where $\C\in \R^{m\times n}$,  $\B\in \R^{n\times p}$, $\C_r\in \R^{m\times r}$,  $\B_r\in \R^{r\times p}$, $\cc_j, \lc_i\in \R^m$, $\bb_j, \rc_i\in \R^p$, $\rho_k$-s are  the poles of the full system, and $\lambda_i$-s are  the poles of the reduced system. Then, 
+\begin{equation}
+\begin{aligned}
+\langle\h, \h_r\rangle_{\ch_2({\tf})}=\sum_{j=1}^n\lc_{k}^T\cc_j\bb_j^T\rc_{k}\dfrac{e^{(\lambda_k+\rho_j){\tf}}-1}{\lambda_k+\rho_j}
++\sum_{j=1}^n\sum_{\substack{i=1\\i\neq k}}^r\lc_{i}^T\cc_j\bb_j^T\rc_{i}\dfrac{e^{(\lambda_i+\rho_j){\tf}}-1}{\lambda_i+\rho_j}
+\end{aligned}
+\end{equation}
+\end{Lemma}
+\begin{proof}
+The proof follows from the definition of the $\ch_2(\tf)$ inner product. Consider
+\begin{align*}
+\langle\h, \h_r\rangle_{\ch_2({\tf})}&=tr\left(\int_0^{\tf}\h_r^T\h dt\right).
+\end{align*}
+If we write the impulse response of the reduced system as a sum of $r$ rank-1 matrices and the impulse response of the full system as a sum of $n$ rank-1 matrices, we obtain
+\begin{align*}
+\langle\h, \h_r\rangle_{\ch_2({\tf})}&=tr\left(\int_0^{\tf}\sum_{i=1}^r(\lc_{i}e^{\lambda_it}\rc_{i}^T)^T\sum_{j=1}^n\cc_je^{\rho_jt}\bb_j^Tdt\right).
+\end{align*}
+Using the properties of the trace, we get
+\begin{align*}
+\langle\h, \h_r\rangle_{\ch_2({\tf})}&=tr\left(\sum_{j=1}^n\sum_{i=1}^r\rc_{i}\lc_{i}^T\cc_j\bb_j^T\dfrac{e^{(\lambda_i+\rho_j){\tf}}-1}{\lambda_i+\rho_j}\right)\\
+&=\sum_{j=1}^n\sum_{i=1}^r\lc_{i}^T\cc_j\bb_j^T\rc_{i}\dfrac{e^{(\lambda_i+\rho_j){\tf}}-1}{\lambda_i+\rho_j}.
+\end{align*}
+Finally, we rewrite the sum as
+\begin{align*}
+\langle\h, \h_r\rangle_{\ch_2({\tf})}&=\sum_{j=1}^n\lc_{k}^T\cc_j\bb_j^T\rc_{k}\dfrac{e^{(\lambda_k+\rho_j){\tf}}-1}{\lambda_k+\rho_j}
++\sum_{j=1}^n\sum_{\substack{i=1\\i\neq k}}^r\lc_{i}^T\cc_j\bb_j^T\rc_{i}\dfrac{e^{(\lambda_i+\rho_j){\tf}}-1}{\lambda_i+\rho_j}.
+\end{align*}
+\end{proof}
+
+
+\begin{Lemma}\label{mnormexp}
+If $\h_r(t)=\sum_{i=1}^r \lc_ie^{\lambda_it}\rc_i^T$ is the impulse response of the reduced model, then
+\begin{equation}
+\begin{aligned}
+\norm{\h_r}_{\ch_2({\tf})}^2&= \lc_{k}^T\lc_{k}\rc_{k}^T\rc_{k}\dfrac{e^{(2\lambda_k){\tf}}-1}{2\lambda_k}+\sum_{\substack{i=1 \\i \neq k}}^r\lc_{i}^T\lc_{k}\rc_{k}^T\rc_{i}\dfrac{e^{(\lambda_i+\lambda_k){\tf}}-1}{\lambda_i+\lambda_k}+\\                             
+&\sum_{\substack{j=1\\j\neq k}}^r\lc_{k}^T\lc_{j}\rc_{j}^T\rc_{k}\dfrac{e^{(\lambda_k+\lambda_j){\tf}}-1}{\lambda_i+\lambda_j}+\sum_{\substack{j=1\\j\neq k}}^r\sum_{\substack{i=1\\i\neq k}}^r\lc_{i}^T\lc_{j}\rc_{j}^T\rc_{i}\dfrac{e^{(\lambda_i+\lambda_j){\tf}}-1}{\lambda_i+\lambda_j}.
+\end{aligned}
+\end{equation}
+\end{Lemma}
+\begin{proof}
+Using the definition of the $\norm{\cdot}_{\ch_2}$ and writing the impulse response of the reduced model as  a sum of $r$ rank-1 matrices, we get
+\begin{align*}
+\norm{\h_r}_{\ch_2({\tf})}^2=tr\left(\int_0^{\tf}\h_r^T\h_r dt\right)=tr\left(\int_0^{\tf}\sum_{i=1}^r(\lc_{i}e^{\lambda_it}\rc_{i}^T)^T\sum_{j=1}^r(\lc_{j}e^{\lambda_jt}\rc_{j}^T)dt\right)\\
+\end{align*}
+The properties  of the trace yield 
+\begin{align*}
+\norm{\h_r}_{\ch_2({\tf})}^2=tr\left( \sum_{i=1}^r\sum_{j=1}^r\lc_{i}^T\lc_{j}\rc_{j}^T\rc_{i}\dfrac{e^{(\lambda_i+\lambda_j){\tf}}-1}{\lambda_i+\lambda_j} \right)
+\end{align*}
+We can rewrite the sum as follows
+\begin{align*}
+\norm{\h_r}_{\ch_2({\tf})}^2&= \lc_{k}^T\lc_{k}\rc_{k}^T\rc_{k}\dfrac{e^{(2\lambda_k){\tf}}-1}{2\lambda_k}+\sum_{\substack{i=1 \\i \neq k}}^r\lc_{i}^T\lc_{k}\rc_{k}^T\rc_{i}\dfrac{e^{(\lambda_i+\lambda_k){\tf}}-1}{\lambda_i+\lambda_k}+\\                             
+&\sum_{\substack{j=1\\j\neq k}}^r\lc_{k}^T\lc_{j}\rc_{j}^T\rc_{k}\dfrac{e^{(\lambda_k+\lambda_j){\tf}}-1}{\lambda_i+\lambda_j}+\sum_{\substack{j=1\\j\neq k}}^r\sum_{\substack{i=1\\i\neq k}}^r\lc_{i}^T\lc_{j}\rc_{j}^T\rc_{i}\dfrac{e^{(\lambda_i+\lambda_j){\tf}}-1}{\lambda_i+\lambda_j}
+\end{align*}
+\end{proof}
+For an infinite horizon, Theorem \ref{h2thm} tells us that a locally $\ch_2$ optimal reduced transfer function interpolates the transfer function of the full system at the mirror images of the poles of the reduced model. In the finite horizon case, we attain a similar result, even though the full and reduced transfer functions are not interpolants of each other at the mirror images of the poles. The following lemma is essential in proving the interpolation conditions for the finite horizon case.
+
+\begin{Lemma}\label{mgexp}
+Let $\G(s)=-e^{-s{\tf}}\C(s\I-\A)^{-1}e^{\A {\tf}}\B+\HH(s)$. Then,
+\begin{equation}
+\begin{aligned}
+\G(-\lambda_j)=\sum_{j=1}^n\cc_j\bb_j^T\dfrac{e^{(\lambda_k+\rho_j){\tf}}-1}{\lambda_k+\rho_j}
+\end{aligned}
+\end{equation}
+\end{Lemma}
+\begin{proof}
+For this proof, we use the pole-residue expansion of the transfer functions, and write the other terms in a similar fashion. For instance
+\begin{align*}
+\G(s)&=-e^{-s{\tf}}\sum_{j=1}^n\cc_j\bb_j^T\dfrac{e^{\rho_j\tf}}{s-\rho_j}+\sum_{j=1}^n\cc_j\bb_j^T\dfrac{1}{s-\rho_j}\\
+&=\sum_{j=1}^n\cc_j\bb_j^T\dfrac{-e^{-s{\tf}}e^{\rho_j\tf}}{s-\rho_j}+\sum_{j=1}^n\cc_j\bb_j^T\dfrac{1}{s-\rho_j}\\
+&=\sum_{j=1}^n\cc_j\bb_j^T\dfrac{-e^{(-s+\rho_j)\tf}+1}{s-\rho_j}\\
+&=\sum_{j=1}^n\cc_j\bb_j^T\dfrac{e^{(-s+\rho_j)\tf}-1}{-s+\rho_j}.
+\end{align*}
+Thus,
+\begin{align*}
+\G(-\lambda_k)=\sum_{j=1}^n\cc_j\bb_j^T\dfrac{e^{(\lambda_k+\rho_j){\tf}}-1}{\lambda_k+\rho_j}
+\end{align*}
+\end{proof}
+
+Writing the relevant terms of the error in \eqref{merexp} in terms of the poles and tangential directions of the reduced system enables us to differentiate the error. This representation of the error is essential in proving the following theorem, which establishes the necessary optimality conditions with respect to the $\ch_2(\tf)$ norm.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{theorem}\label{mh2opt}
+Define
+ \[\G(s)=-e^{-s\tf}\C(s\I-\A)^{-1}e^{\A \tf}\B+\HH(s).\]
+Let $\HH_r$ be the best $r^{th}$ order approximation of $\HH$ with respect to the $\ch_2(\tf)$ norm.
+Define 
+\[\G_r(s)=-e^{-s\tf}\C(s\I_r-\A_r)^{-1}e^{\A_r \tf}\B_r+\HH_r(s).\]
+ Then
+\begin{align*}
+\lc_k^T\G(-\lambda_k)&=\lc_k^T\G_r(-\lambda_k)\\
+\G(-\lambda_k)\rc_k&=\G_r(-\lambda_k)\rc_k\\
+\lc_k^T\G'(-\lambda_k)\rc_k&=\lc_k^T\G_r'(-\lambda_k)\rc_k
+\end{align*}
+where  $\lambda_k$ for $k=1, 2, ... , r$ are the poles of the reduced system $\HH_r$, and $\lc_k, \rc_k$ are the tangential directions.
+
+\end{theorem}
+%%%Start proof he
+\begin{proof}
+ Let $\J$ be the square $\ch_2({\tf})$ error between the full and reduced models i.e.
+\begin{align*}
+\J&=\norm{\h -\h_r}^2_{\ch_2({\tf})}.
+\end{align*}
+
+
+
+From Lemma \ref{minnerexp}, and Lemma \ref{mnormexp}, we infer
+
+\begin{equation} \label{merror}
+\begin{aligned}
+\J&=tr \Bigg(\int_0^{\tf}\h(t)^T\h(t) dt-2 \left(\sum_{j=1}^n\lc_{k}^T\cc_j\bb_j^T\rc_{k}\dfrac{e^{(\lambda_k+\rho_j){\tf}}-1}{\lambda_k+\rho_j}
++\sum_{j=1}^n\sum_{\substack{i=1\\i\neq k}}^r\lc_{i}^T\cc_j\bb_j^T\rc_{i}\dfrac{e^{(\lambda_i+\rho_j){\tf}}-1}{\lambda_i+\rho_j}\right)\\
+&+ \lc_{k}^T\lc_{k}\rc_{k}^T\rc_{k}\dfrac{e^{(2\lambda_k){\tf}}-1}{2\lambda_k}
++\sum_{\substack{i=1 \\i \neq k}}^r\lc_{i}^T\lc_{k}\rc_{k}^T\rc_{i}\dfrac{e^{(\lambda_i+\lambda_k){\tf}}-1}{\lambda_i+\lambda_k}\\
+&+\sum_{\substack{j=1\\j\neq k}}^r\lc_{k}^T\lc_{j}\rc_{j}^T\rc_{k}\dfrac{e^{(\lambda_k+\lambda_j){\tf}}-1}{\lambda_i+\lambda_j}+\sum_{\substack{j=1\\j\neq k}}^r\sum_{\substack{i=1\\i\neq k}}^r\lc_{i}^T\lc_{j}\rc_{j}^T\rc_{i}\dfrac{e^{(\lambda_i+\lambda_j){\tf}}-1}{\lambda_i+\lambda_j}\Bigg) 
+\end{aligned}
+\end{equation}
+Using \eqref{merror} we obtain the gradient of the cost function by perturbing the cost functional with respect to the residue directions $\lc_k\to \lc_k+\Delta\lc_k$ and $\rc_k\to \rc_k+\Delta\rc_k$ i.e. 
+\begin{align*}
+\Delta\J_k&=tr\Bigg(\int_0^{\tf}\h(t)^T\h(t) dt-2\bigg( \sum_{j=1}^n(\lc_{k}+\Delta\lc_{k})^T\cc_j\bb_j^T(\rc_{k}+\Delta\rc_{k})\dfrac{e^{(\lambda_k+\rho_j){\tf}}-1}{\lambda_k+\rho_j}\\
+&+\sum_{j=1}^n\sum_{\substack{i=1\\i\neq k}}^r\lc_{i}^T\cc_j\bb_j^T\rc_{i}\dfrac{e^{(\lambda_i+\rho_j){\tf}}-1}{\lambda_i+\rho_j}\bigg)+ (\lc_{k}+\Delta\lc_{k})^T(\lc_{k}+\Delta\lc_{k})(\rc_{k}+\Delta\rc_{k})^T(\rc_{k}+\Delta\rc_{k})\dfrac{e^{(2\lambda_k){\tf}}-1}{2\lambda_k}\\
+&+\sum_{\substack{i=1 \\i \neq k}}^r\lc_{i}^T(\lc_{k}+\Delta\lc_{k})(\rc_{k}+\Delta\rc_{k})^T\rc_{i}\dfrac{e^{(\lambda_i+\lambda_k){\tf}}-1}{\lambda_i+\lambda_k}+                             
+\sum_{\substack{j=1\\j\neq k}}^r(\lc_{k}+\Delta\lc_{k})^T\lc_{j}\rc_{j}^T(\rc_{k}+\Delta\rc_{k})\dfrac{e^{(\lambda_k+\lambda_j){\tf}}-1}{\lambda_i+\lambda_j}\\
+&+\sum_{\substack{j=1\\j\neq k}}^r\sum_{\substack{i=1\\i\neq k}}^r\lc_{i}^T\lc_{j}\rc_{j}^T\rc_{i}\dfrac{e^{(\lambda_i+\lambda_j){\tf}}-1}{\lambda_i+\lambda_j}\Bigg)
+\end{align*}
+Using the properties of the trace and considering only the terms that are multiplied by $\Delta\lc_{k}$ and $\Delta\rc_{k}^T$ we obtain:
+\begin{align*}
+\dfrac{\partial J}{\partial \rc_{k}}&=-2\lc_k^T\sum_{j=1}^n\cc_j\bb_j^T\dfrac{e^{(\lambda_k+\rho_j){\tf}}-1}{\lambda_k+\rho_j}+2\lc_k^T\sum_{j=1}^n\lc_j\rc_j^T\dfrac{e^{(\lambda_k+\lambda_j){\tf}}-1}{\lambda_k+\lambda_j}\\
+\dfrac{\partial J}{\partial \lc_{k}}&=-2\left (\sum_{j=1}^n\cc_j\bb_j^T\dfrac{e^{(\lambda_k+\rho_j){\tf}}-1}{\lambda_k+\rho_j}\right)\rc_k+2\left(\sum_{j=1}^n\lc_j\rc_j^T\dfrac{e^{(\lambda_k+\lambda_j){\tf}}-1}{\lambda_k+\lambda_j}\right)\rc_k\\
+\end{align*}
+If we set  $\dfrac{\partial J}{\partial \rc_{k}}=0   \text{ and }\dfrac{\partial J}{\partial \lc_{k}}=0 $, using Lemma \ref{mgexp},  we obtain 
+
+\begin{align*}
+\lc_k^T\G(-\lambda_k)&=\lc_k^T\G_r(-\lambda_k)\\
+\G(-\lambda_k)\rc_k&=\G_r(-\lambda_k)\rc_k.
+\end{align*}
+
+If we differentiate the error $\J$ with respect to the $k$-th pole $\lambda_k$, and set it equal to $0$,  we have
+\begin{align*}
+\pder[\J]{\lambda_k}&=-2\lc_k^T\left(\sum_{j=1}^n \cc_j\bb_j^T \dfrac{{\tf}(\lambda_k+\rho_j)e^{(\rho_j+\lambda_k){\tf}}-e^{(\rho_j+\lambda_k){\tf}}+1}{(\lambda_k+\rho_j)^2}\right)\rc_k\\
+&+2\lc_k^T \left(\sum^r_{i=1} \lc_i\rc_i^T\dfrac{{\tf}(\lambda_i+\lambda_j\k)e^{(\lambda_i+\lambda_k){\tf}}-e^{(\lambda_i+\lambda_k){\tf}}+1}{(\lambda_i+\lambda_k)^2}\right)\rc_k\\
+&=0.
+\end{align*}
+Thus,
+\begin{align*}\small
+\lc_k^T\left(\sum_{j=1}^n \cc_j\bb_j^T \dfrac{{\tf}(\lambda_k+\rho_j)e^{(\rho_j+\lambda_k){\tf}}-e^{(\rho_j+\lambda_k){\tf}}+1}{(\lambda_k+\rho_j)^2}\right)\rc_k=\lc_k^T \left(\sum^r_{i=1} \lc_i\rc_i^T\dfrac{{\tf}(\lambda_i+\lambda_j\k)e^{(\lambda_i+\lambda_k){\tf}}-e^{(\lambda_i+\lambda_k){\tf}}+1}{(\lambda_i+\lambda_k)^2}\right)\rc_k\\
+\end{align*}
+
+Consider
+ \begin{align*}
+ \G(s)&=-e^{-s{\tf}}\C(s\I-\A)^{-1}e^{\A {\tf}}\B+\HH(s)\\
+ &=-\sum_{i=1}^n\dfrac {\cc_i\bb_i^T e^{(-s+\rho_i){\tf}}}{s-\rho_i}+\sum_{i=1}^n\dfrac{ \cc_i\bb_i^T}{s-\rho_i}\\
+ \end{align*}
+ \begin{align*}
+ \G_r(s)&=-e^{-s{\tf}}\C_r(s\I_r-\A_r)^{-1}e^{\A_r {\tf}}\B_r+\HH_r(s)\\
+  &=-\sum_{i=1}^r\dfrac {\lc_i\rc_ie^{(-s+\lambda_i){\tf}}}{s-\lambda_i}+\sum_{i=1}^r\dfrac{ \lc_i\rc_i}{s-\lambda_i}\\
+ \end{align*}
+
+ If we differentiate $\G(s)$ with respect to $s$, we get
+ \begin{align*}
+ \G'(s)&=-\sum_{i=1}^n\cc_i\bb_i^T\dfrac {(-{\tf}) (s-\rho_i)e^{(-s+\rho_i){\tf}}-e^{(-s+\rho_i){\tf}}}{(s-\rho_i)^2}-\sum_{i=1}^n\dfrac{ \cc_i\bb_i^T}{(s-\rho_i)^2}\\
+& =\sum_{i=1}^n\cc_i\bb_i^T\dfrac {{\tf} (s-\rho_i)e^{(-s+\rho_i){\tf}}+e^{(-s+\rho_i){\tf}}-1}{(s-\rho_i)^2}
+ \end{align*}
+Similarly, if we differentiate $\G_r(s)$ with respect to $s$, we get
+ \begin{align*}
+ \G_r'(s)& =\sum_{i=1}^r\lc_i\rc_i^T\dfrac {{\tf} (s-\lambda_i)e^{(-s+\lambda_i){\tf}}+e^{(-s+\lambda_i){\tf}}-1}{(s-\lambda_i)^2}.
+ \end{align*}
+Therefore, 
+\begin{align*}
+\lc_k^T\G'(-\lambda_k)\rc_k&=\lc_k^T\G_r'(-\lambda_k)\rc_k
+\end{align*}
+\end{proof}
+
+
+The following corollary deals with SISO systems i.e.  we have a specific case of Theorem \ref{mh2opt}. In the SISO case, we obtain full interpolation, instead of the tangential interpolation obtained in the MIMO case. 
+
+\begin{corollary}\label{h2opt}
+Let $\G(s)=-e^{-s{\tf}}\bfc^T(s\I-\A)^{-1}e^{\A {\tf}}\bfb+\HH(s)$ and $\G_r(s)=-e^{-s{\tf}}\bfc^T_r(s\I_r-\A_r)^{-1}e^{\A_r {\tf}}\bfb_r+\HH_r(s)$ where $\HH$ and $\HH_r$ are transfer functions of SISO models.
+If $\HH_r$ is the best $r^{th}$ order approximation of $\HH$ with respect to the $\ch_2({\tf})$ norm, then
+\begin{align*}
+\G(-\lambda_k)&=\G_r(-\lambda_k)\\
+\G'(-\lambda_k)&=\G_r'(-\lambda_k)
+\end{align*}
+where  $\lambda_k$ for $k=1, 2, ... , r$ are the poles of the reduced system.
+\end{corollary}
+
+\begin{proof}
+Since $\bfb$ and $\bfc$ are vectors instead of matrices, we can follow the proof of Theorem \ref{mh2opt} and consider that   $\lc_k$ and $\rc_k$ are scalars. 
+\end{proof}
+
+ If we know the poles of the reduced system, we can establish the necessary and sufficient optimality conditions for the residues. In other words, given the poles of a reduced system we can find the best residues so that we minimize the error between the full and reduced systems.
+
+\begin{corollary}\label{optres}
+Let $\HH=\sum_{i=1}^n \psi_ie^{\rho_i\tf}$  and $\HH_r=\sum_{i=1}^r \phi_ie^{\lambda_i\tf}.$ For a fixed set of eigenvalues $\{\lambda_i\}_{i=1}^r$,
+$\HH_r$ is the best $r^{th}$ order approximation of $\HH$ with respect to the $\ch_2({\tf})$ norm if and only if 
+\begin{align*}
+M\phi=z
+\end{align*}
+where  $\phi$ is the vector of the residues $\phi_i$ of the reduced system, $M_{i,j}=\dfrac{e^{(\lambda_i+\lambda_j){\tf}}-1}{\lambda_i+\lambda_j}$, and %$z_i=-\sum_{k=1}^n\dfrac{\phi_k(e^{(\lambda_i+\lambda_k){\tf}}-1)}{\lambda_i+\lambda_k}.$
+$z_j=e^{\lambda_j{\tf}}\C(-\lambda_j\I-\A)^{-1}e^{\A {\tf}}\B-\HH(-\lambda_j).$
+\end{corollary}
+\begin{proof}
+Note that if $\HH$ and $\HH_r$ are SISO systems, we can write the error $\J$ as follows
+\begin{align*}
+\J&= \phi^{T}M\phi - 2\phi^{T}X+\int_0^{\tf}(\h(t))^2dt  .
+\end{align*}
+where $X\in \R^{r\times 1}$ and $X_i=\sum_{k=1}^n \psi_k \dfrac{e^{(\rho_k+\lambda_i){\tf}}-1}{\lambda_i+\rho_k}.$
+
+Using Lemma \ref{mnormexp} we obtain
+\begin{align*}
+\phi^{T}M\phi=\norm{\h_r}_{\ch_2({\tf})}^2.
+\end{align*}
+Since $\phi$ is arbitrary, we conclude $M$ is positive definite. Thus, $\J$ is a quadratic function of the residues $\phi$ with a positive leading term. Hence, the critical point of the error squared function is the minimum.
+The rest follows from Lemma \ref{mgexp} and differentiating the error $\J$ with respect to the residues.
+\end{proof}
+
+The following proposition tells us that the $\ch_2(\tf)$ norm of $\G$ and $\HH$ is the same. %Implications of this result???
+\begin{Proposition}
+Let  $\G(s)=-e^{-s{\tf}}\C(s\I-\A)^{-1}e^{\A {\tf}}\B+\HH(s)$ where $\HH(s)=\C(s\I-\A)^{-1}\B$  is the transfer function of \eqref{fom1}. Then, $\norm{\G}_{\ch_2({\tf})}=\norm{\HH}_{\ch_2({\tf})}$
+\end{Proposition}
+\begin{proof}
+Note 
+\begin{align*}
+\G(s)&=-e^{-s{\tf}}\C(s\I-\A)^{-1}e^{\A {\tf}}\B+\HH(s)\\
+&=-e^{-s{\tf}}\sum_{i=1}^n \dfrac{\phi_i e^{\lambda_i {\tf}}}{s-\lambda_i}+\HH(s)
+\end{align*}
+where $\lambda_i$'s and $\phi_i$'s are the poles and the residues of the system, respectively. 
+Consider the inverse Laplace transform of $\G(s)$:
+\begin{align*}
+\mathcal{L}^{-1}\{\G(s)\}=\h(t)+\sum_{i=1}^n u_{\tf}(t)\phi_i e^{\lambda_i {\tf}}e^{\lambda_i (t-{\tf})}=\h(t)+\sum_{i=1}^n u_{\tf}(t)\phi_i e^{\lambda_i t}
+\end{align*}
+where $u_{\tf}(t)$ is the unit step function
+\begin{align*}
+u_{\tf}(t)=
+ \begin{cases} 
+      0 &    t< {\tf} \\    
+      1 &    t\geq {\tf} 
+   \end{cases}.
+\end{align*}
+Thus, 
+\begin{align*}
+\norm{\G}_{\ch_2({\tf})}&=\int_0^{\tf}\h(t)+\sum_{i=1}^n u_{\tf}(t)\phi_i e^{\lambda_i t} dt=\int_0^{\tf}\h(t)dt=\norm{\HH}_{\ch_2({\tf})}
+\end{align*}
+\end{proof}
+
+
+% for extensive proof of siso version check the dropbox version of this paper
+\begin{remark}
+\textcolor{red}{Melchior et al. introduced a method that constructs an optimal reduced model by minimizing the Frobenius norm of the error for linear time-varying systems on a finite horizon\cite{MelVG14}.}
+\end{remark}
+
+\begin{remark} Goyal and Redmann established gramian-based optimality conditions independently of this paper. However, the presented algorithm in \cite{GoyR17} approximately satisfies the optimality conditions presented in their paper.  \FH satisfies the interpolation based conditions exactly. 
+\end{remark}
+
+If we let ${\tf}\to \infty$, we retrieve the conditions for the infinite-horizon case, which is expected.\\
+\subsection{\FH: A Descent Algorithm}
+Here we describe an algorithm which produces a reduced model that satisfies the necessary $\ch_2({\tf})$ optimality conditions upon convergence. Since we are reducing the model over a finite horizon, we name this algorithm Finite Horizon IRKA (\FH). In the numerical examples provided in the following chapter, we used only SISO systems, thus, we describe the algorithm within the SISO context.
+
+\begin{framed}
+\textbf{Sketch of \FH}
+ \begin{itemize}
+	\item Pick an $r$-fold intial shift set that is closed under conjugation.% and initial tangent directions $\textbf{r}_i$ and $\textbf{l}_i$ also closed under conjugation.
+	
+	\item while (not converged)
+	\begin{itemize}
+	\item Find the optimal residues for the given shift set using Corollary \ref{optres}
+	\item Update the shifts by minimizing the error $\J$.
+\end{itemize}
+\end{itemize}
+\end{framed}
+As we see, \FH \ is a descent algorithm. Once we are given an initial set of poles, we search for the optimal residues, meaning that the new reduced model is a better approximation than the previous ones. Then, keeping the newfound residues fixed, we search for optimal poles, guaranteeing that in each step we are obtaining a better approximation. Therefore, upon convergence, we achieve a local min for the error system. 
+Once \FH\   converges, using the obtained poles and residues we can construct the matrices $\A_r, \B_r$ and $\C_r$.
+
+%Here we write the updated Numerical Results section
+\section{Numerical Results}  \label{sec:num}
+In this section we compare our algorithm with the Proper Orthogonal Decomposition (POD), Time-Limited Balanced Truncation (TLBT), and a recently presented algorithm by Goyal and Redmann, which is based on the Sylvester equations associated with the system\cite{GoyR17}. 
+
+
+
+ In our comparisons, we consider three models: a heat model of order $n=197$, a model of data collected from the international space station (ISS) of order $n=270$, and a toy unstable model of order $n=402$. The unstable system has $400$ stable poles and $2$ unstable poles (positive real part). In all the examples shown below, we initially reduced the original model using POD, \goyal \  or TLBT. Afterwards, we used the obtained reduced model via POD, \goyal \ or TLBT to initialize \FH.
+
+ When we reduce a heat model via \FH, we use a trust-region algorithm to minimize the error $\J$, while when we reduce an ISS model or an unstable model, we use a quasi-newton algorithm to minimize $\J$. The graphs below show the $\ch_2(\tf)$ approximation error for different values of $r$, the order of the reduced model.\\
+ \includegraphics [scale=0.7]{ErrorVSrHeatU}
+
+
+\includegraphics [scale=0.7]{ErrorVSrIssU}
+
+\includegraphics [scale=0.7]{ErrorVSrUnsU}
+ \\
+ As expected, \FH \ yields a better approximation compared to the other algorithms for each model. We notice significant improvements over POD. It appears that \goyal \ and TLBT provide better initializations for \FH \ compared to POD. POD yielded a worse initialization compared to TLBT and the Sylvester based algorithm for the ISS model. Nonetheless, we still noticed significant improvements after reducing via \FH. 
+ 
+ 
+ 
+%\subsection{The Heat Model}
+%First, we reduce a stable heat model of order $n=197$ via POD and FH algorithm and we compare the results with respect to the $\ch_2({\tf})$ norm.
+%
+%In Table \ref{ipodfh} we compare the performances of the FH algorithm and POD when we use these methods to reduce an ISS model of order $n=270$. Even in this case, the FH algorithm approximates the original more accurately than POD.  
+%\textbf{Note}: (*) means poles did not move
+%%Reducing ISS1R (n=270)
+%
+%
+%Next, we test the FH algorithm on an unstable system and compare it once again with POD. We consider an unstable system which consists of 400 poles in the left half plane, and 2 poles in the right half plane, hence it has order $n=402$. %and the other consists of  4000 poles in the left plane, and 2 poles in the right half plane, thus the second system has order $n=4002$. 
+%
+%As Table \ref{upodfh} shows, the FH algorithm performs better than POD.
+%
+%
+%\subsection{Comparing IRKA and FH algorithm}
+%The Iterative Rational Krylov Algorithm (IRKA) yields a locally $\ch_2$ optimal reduced model over an infinite time horizon. Nonetheless, the FH algorithm produces a reduced model which is locally $\ch_2({\tf})$ optimal over a specific finite time interval. Therefore, we expect the FH algorithm to return a more accurate model than IRKA with respect to the $\ch_2({\tf})$ norm over the time interval $[0, {\tf}]$. In the examples shown below, we reduce the full model via IRKA, and then use the reduced model we obtained through IRKA as an initialization for the FH algorithm. The following tables, namely, Table \ref{hirkafh}, Table \ref{iirkafh}, and Table \ref{uirkafh} illustrate the better performance of the FH algorithm compared to IRKA with respect to the $\ch_2({\tf})$ norm. 
+%Table \ref{uirkafh} shows a significant improvement of the FH algorithm over IRKA when dealing with an unstable system. We expect this improvement due to IRKA's inability to produce a locally $\ch_2$ optimal reduced system if the full system is unstable.
+%
+%\subsection{Comparing Time-limited Balanced Truncation and FH Algorithm}
+%Finally, we compare the FH algorithm to time-limited balanced truncation. In this case we reduce the full models via TLBT, and then use the reduced model obtained through TLBT to initialize the FH algorithm. As Table \ref{htlbtfh} and Table \ref{itlbtfh} show, the FH algorithm outperforms TLBT when we reduce a heat model of order $n=197$ and an ISS model of order $n=270$, respectively.
+%
+
+
+
+
+
+
+
+
+
+
+
+
+%Old section
+%\section{Numerical Results}
+%In this section we compare our algorithm with the Iterative Rational Krylov Algorithm (IRKA), Proper Orthogonal Decomposition (POD), and Time-Limited Balanced Truncation (TLBT). In our comparisons, we consider three models: a heat model, a model of data collected from the international space station (ISS), and a toy unstable model. In all the examples shown below, we initially reduced the original model using POD, IRKA or TLBT. Afterwards, we used the obtained reduced model via POD, IRKA or TLBT to initialize the FH algorithm. When we reduce a heat model via \FH, we use a trust-region algorithm to minimize the error $\J$, while when we reduce an ISS model or an unstable model, we use a quasi-newton algorithm to minimize $\J$.
+%\subsection{Comparing POD and FH algortihm}
+%First, we reduce a stable heat model of order $n=197$ via POD and FH algorithm and we compare the results with respect to the $\ch_2({\tf})$ norm. As Table \ref{hpodfh} shows, the FH algorithm outperforms POD in terms of accuracy.
+%\begin{table} [H]
+%%\doublespacing
+%\begin{spacing}{1.5}
+%\begin{center}
+%\caption{$\ch_2({\tf})$ errors for POD and \FH for a heat model ($n=197$) \label{hpodfh}}
+%  \begin{tabular}{| c | c |  c | c|c|  }
+%   \hline
+% $r$ &$t$   &POD Error&\FH Error &Iterations \\ \hline
+% 2&1&\num{0.71774}&\num{0.15839}&200 \\ \hline
+%3&1&\num{0.14537}&\num{0.016073}&48 \\ \hline
+%4&1&\num{0.044252}&\num{0.0032405}&200 \\ \hline
+%5&1&\num{0.051055}&\num{0.0028335}&200 \\ \hline
+%6&1&\num{0.013901}&\num{0.0030696}&72  \\ \hline
+%7&1&\num{0.00050674}&\num{0.00043467}&3  \\ \hline 
+%8&1&\num{0.0014813}&\num{0.0003152}&3\\ \hline
+%9&1&\num{0.00041931}&\num{9.7653e-05}&3\\ \hline
+%10&1&\num{2.3879e-05}&\num{3.7619e-06}&3 \\ \hline
+%  \end{tabular}
+%\end{center}
+%\end{spacing}
+%\end{table}
+%
+%
+%In Table \ref{ipodfh} we compare the performances of the FH algorithm and POD when we use these methods to reduce an ISS model of order $n=270$. Even in this case, the FH algorithm approximates the original more accurately than POD.  
+%\textbf{Note}: (*) means poles did not move
+%%Reducing ISS1R (n=270)
+%\begin{table} [H]
+%%\doublespacing
+%\begin{spacing}{1.5}
+%\begin{center}
+%\caption{ $\ch_2({\tf})$ errors for POD and \FH \ for an ISS model ($n=270$) \label{ipodfh}}
+%  \begin{tabular}{| c | c |  c | c|c|  }
+%   \hline
+% $r$ &$t$   &POD Error& \FH Error &Iterations \\ \hline
+% 2&1&\num{0.0026749}&\num{0.0026282}&20 \\ \hline
+%4&1&\num{0.0028713}&\num{0.0025058}&157\\ \hline
+%6&1&\num{0.003148}&\num{0.0024142}&21\\ \hline
+%8&1&\num{0.0032879}&\num{0.0023909}&6\\ \hline
+%10&1&\num{0.0031631}&\num{0.0022457}&20 \\ \hline
+%12&1&\num{0.0028524}&\num{0.002354}&3* \\ \hline
+%14&1&\num{0.00082516}&\num{0.00013215}&3* \\ \hline
+%
+%  \end{tabular}
+%\end{center}
+%\end{spacing}
+%\end{table}
+%
+%
+%Next, we test the FH algorithm on an unstable system and compare it once again with POD. We consider an unstable system which consists of 400 poles in the left half plane, and 2 poles in the right half plane, hence it has order $n=402$. %and the other consists of  4000 poles in the left plane, and 2 poles in the right half plane, thus the second system has order $n=4002$. 
+%
+%As Table \ref{upodfh} shows, the FH algorithm performs better than POD.
+%
+%
+%%Reducing Unstable System (n=402)
+%\begin{table} [H]
+%%\doublespacing
+%\begin{spacing}{1.5}
+%\begin{center}
+%\caption{  $\ch_2({\tf})$ errors for POD and \FH\ for an unstable system ($n=402$) \label{upodfh}}
+%  \begin{tabular}{| c | c |  c | c|c|}
+%   \hline
+% $r$ &$t$   &POD Error& \FH Error &Iterations \\ \hline
+%  2&1&\num{0.063126}&\num{0.011225}&200 \\ \hline
+%4&1&\num{0.0027201}&\num{0.0025703}&4\\ \hline
+%6&1&\num{0.0008504}&\num{0.00052878}&3 * \\ \hline
+%8&1&\num{0.00015715}&\num{6.1988e-05}&3*\\ \hline
+%10&1&\num{6.1985e-05}&\num{1.7874e-05}&3*\\ \hline
+%12&1&\num{1.3454e-05}&\num{2.7749e-06}&4* \\ \hline
+%
+%  \end{tabular}
+%\end{center}
+%\end{spacing}
+%\end{table}
+%
+%%%Unstable system (4002)
+%%\begin{table} [H]
+%%%\doublespacing
+%%\begin{spacing}{1.5}
+%%\begin{center}
+%%\caption{ $\ch_2({\tf})$ errors for POD and FH reduction of an unstable system ($n=4002$) \label{upodfh1}}
+%%\begin{tabular}{| c | c |  c | c|c|  } \hline
+%% $r$ &$t$   &POD Error& FH Error & Iterations \\ \hline
+%%5&1 & 0.0511&  0.0232 & 6  \\ \hline %Even though optimization failed in the first step, it succeeded in the successive steps
+%%6&1 &0.0139  &  0.0085&3\\ \hline
+%%7&1&0.00050674&0.00043467&3\\ \hline
+%%8&1&0.0014813&0.00059447&3\\ \hline
+%%9&1&0.00041931&0.00017433&3\\ \hline
+%%\end{tabular}
+%%\end{center}
+%%\end{spacing}
+%%\end{table}
+%%
+%\subsection{Comparing IRKA and FH algorithm}
+%The Iterative Rational Krylov Algorithm (IRKA) yields a locally $\ch_2$ optimal reduced model over an infinite time horizon. Nonetheless, the FH algorithm produces a reduced model which is locally $\ch_2({\tf})$ optimal over a specific finite time interval. Therefore, we expect the FH algorithm to return a more accurate model than IRKA with respect to the $\ch_2({\tf})$ norm over the time interval $[0, {\tf}]$. In the examples shown below, we reduce the full model via IRKA, and then use the reduced model we obtained through IRKA as an initialization for the FH algorithm. The following tables, namely, Table \ref{hirkafh}, Table \ref{iirkafh}, and Table \ref{uirkafh} illustrate the better performance of the FH algorithm compared to IRKA with respect to the $\ch_2({\tf})$ norm. 
+%Table \ref{uirkafh} shows a significant improvement of the FH algorithm over IRKA when dealing with an unstable system. We expect this improvement due to IRKA's inability to produce a locally $\ch_2$ optimal reduced system if the full system is unstable.
+%\begin{table} [H]
+%%\doublespacing
+%\begin{spacing}{1.5}
+%\begin{center}
+%\caption{  $\ch_2$ errors for IRKA and \FH for a heat model ($n=197)$ \label{hirkafh}}
+%  \begin{tabular}{| c | c |  c | c|c|c|c|  }
+%   \hline
+% $r$ &$t$   & IRKA Error&\FH Error &Iterations \\ \hline
+% 2&1&\num{0.66842}&\num{0.1535}&11 \\ \hline
+% 3&1&\num{0.20582}&\num{0.03038}&200 \\ \hline
+%4&1&\num{0.16087}&\num{0.021047}&200  \\  \hline
+%5&1&\num{0.0058176}&\num{0.0032746}&44 \\ \hline 
+%6&1&\num{0.0025614}&\num{0.0025408}&2*\\ \hline
+%7&1&\num{0.00079903}&\num{0.00074239}&2* \\ \hline 
+%8&1&\num{0.00081294}&\num{0.0007357}&2*\\ \hline
+%%10&1&\num{2.1285e-06}&\num{9.0806e-05}&4 \\ \hline
+%  \end{tabular}
+%\end{center}
+%\end{spacing}
+%\end{table}
+%
+%\begin{table} [H]
+%%\doublespacing
+%\begin{spacing}{1.5}
+%\begin{center}
+%\caption{$\ch_2$ errors for IRKA and \FH for an ISS model $(n=270)$ \label{iirkafh}}
+%  \begin{tabular}{| c | c |  c | c|c|c|c|  }
+%   \hline
+% $r$ &$t$   &IRKA Error& \FH Error &Iterations  \\ \hline
+% 2&1&\num{0.0026632}&\num{0.0026194}&30 \\ \hline
+%4&1&\num{0.0026247}&\num{0.0026184}&2\\ \hline
+%6&1&\num{0.00018958}&\num{9.9177e-05}&14 \\ \hline %
+%8&1&\num{0.00016483}&\num{9.3078e-05}&9\\ \hline
+%10&1&\num{0.00016354}&\num{0.00010912}&4*\\ \hline
+%12&1&\num{0.00013247}&\num{2.8465e-05}&3*\\ \hline
+%14&1&\num{0.00013084}&\num{3.0485e-05}&3*\\ \hline
+%
+%  \end{tabular}
+%\end{center}
+%\end{spacing}
+%\end{table}
+%
+%\begin{table} [H]
+%%\doublespacing
+%\begin{spacing}{1.5}
+%\begin{center}
+%\caption{ $\ch_2$ errors for IRKA and \FH for an unstable model $(n=402)$\label{uirkafh}}
+%  \begin{tabular}{| c | c |  c | c|c|c|c|  }
+%   \hline
+% $r$ &$t$   &IRKA Error& \FH Error & Iterations\\ \hline
+% 2&1&\num{0.15562}&\num{0.01153}&3 \\ \hline
+% 3&1&\num{0.632}&\num{0.0044123}&2*\\ \hline
+% 5&1&\num{0.1845}&\num{0.0029132}&2 *\\ \hline 
+%6&1&\num{0.20949}&\num{0.0022496}&2*\\ \hline 
+%8&1&\num{0.10856}&\num{0.0023389}&4 *\\ \hline
+%9&1&\num{0.034823}&\num{0.0029088}&2* \\ \hline
+%11&1&\num{0.019365}&\num{0.0076169}&4* \\ \hline
+%12&1&\num{0.065629}&\num{0.0021627}&4\\ \hline
+%  \end{tabular}
+%\end{center}
+%\end{spacing}
+%\end{table}
+%
+%\subsection{Comparing Time-limited Balanced Truncation and FH Algorithm}
+%Finally, we compare the FH algorithm to time-limited balanced truncation. In this case we reduce the full models via TLBT, and then use the reduced model obtained through TLBT to initialize the FH algorithm. As Table \ref{htlbtfh} and Table \ref{itlbtfh} show, the FH algorithm outperforms TLBT when we reduce a heat model of order $n=197$ and an ISS model of order $n=270$, respectively.
+%
+%\begin{table} [H]
+%%\doublespacing
+%\begin{spacing}{1.5}
+%\begin{center}
+%\caption{ $\ch_2(\tf)$ errors for TLBT and \FH for a heat model $(n=197)$ \label{htlbtfh}}
+%  \begin{tabular}{| c | c |  c | c|c|c|c|  }
+%   \hline
+% $r$ &$t$   & TLBT Error&\FH Error &Iterations \\ \hline
+% 2&1&\num{0.16208}&\num{0.15845}&200 \\ \hline
+%% 3&1&\num{0.002633}&\num{0.011792}&200 \\ \hline
+%4&1&\num{0.0026404}&\num{0.0026103}&6 \\  \hline
+%5&1&\num{0.0015398}&\num{0.001105}&200 \\ \hline
+%6&1&\num{0.00085296}&\num{0.00082509}&50\\ \hline
+%%7&1&\num{1.641e-06}&\num{0.00043486}&7  \\ \hline 
+%8&1&\num{1.8365e-06}&\num{1.5709e-06}&2*\\ \hline
+%%9&1&\num{1.5989e-07}&\num{0.0016598}&3\\ \hline
+%%12&1&\num{1.0214e-07}&\num{7.3243e-06}&3\\ \hline
+%  \end{tabular}
+%\end{center}
+%\end{spacing}
+%\end{table}
+%
+%
+%
+%\begin{table} [H]
+%%\doublespacing
+%\begin{spacing}{1.5}
+%\begin{center}
+%\caption{ $\ch_2(\tf)$ errors for TLBT and \FH for an ISS model $(n=270)$  \label{itlbtfh}}
+%  \begin{tabular}{| c | c |  c | c|c|c|c|  }
+%   \hline
+% $r$ &$t$   &TLBT Error& \FH Error &Iterations  \\ \hline
+% 2&1&\num{0.0011856}&\num{0.0011824}&14\\ \hline
+% 4&1&\num{0.00015487}&\num{0.0001264}&70 \\ \hline
+% 6&1&\num{0.00015817}&\num{0.00010399}&140 \\ \hline
+%8&1&\num{0.00018415}&\num{4.9372e-05}&45\\ \hline
+%10&1&\num{2.2283e-05}&\num{1.6448e-05}&10 \\ \hline
+%12&1&\num{1.6522e-05}&\num{8.161e-06}&11 \\ \hline
+%14&1&\num{1.0444e-05}&\num{5.3355e-06}&20 \\ \hline
+%%16&1&\num{2.929e-06}&\num{2.13e-06}&7 \\ \hline
+%\end{tabular}
+%\end{center}
+%\end{spacing}
+%\end{table}
+%
+
+\section{Conclusions and Future Work} \label{sec:conc}
+We established $\ch_2({\tf})$ optimality conditions on a finite horizon using two different approaches: the Gramian based approach, which was inspired by Wilson, and the interpolation based approach where we write the impulse response of the reduced system in terms of the poles and residues of the ROM. The Gramian-based optimality conditions that we derived appeared to be difficult to implement in practice. In the future, we hope to implement the Gramian-based conditions efficiently.   When we obtain ROM via \FH,\ the function $\G_r$ interpolates $\G$ at the mirror images of the poles of the reduced system $\HH_r$.  \FH\ outperforms POD, IRKA and TLBT for the examples discussed in this paper. Numerical experiments were consistent with our theoretical results. For future research, we plan to improve our algorithm by cheaply approximating the exponential terms in $\G$ and finding more efficient ways to minimize the error $\J$. Another interesting future direction would be to show an equivalence between the Gramian-based approach and the kernel expansion approach.
+
+
+%%%%%%%%
+%%%%%%%%
+%%%%%%%%
+
+%$\ell$  $\bf{r}$  $\rc$ $\lc$
+
+
+
+
+
+\bibliography{bibliography}
+\end{document}
